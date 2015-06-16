@@ -1,5 +1,3 @@
-library(shiny)
-
 # Defining the UI
 
 shinyUI(fluidPage(
@@ -23,7 +21,7 @@ shinyUI(fluidPage(
       
       # Ship data
       conditionalPanel(
-        condition = 'input.name != "Select a ship"',
+        condition = 'input.shipList != 0',
         
         sliderInput("attack",
                     "Attack:",
@@ -63,26 +61,15 @@ shinyUI(fluidPage(
           column(width=6, checkboxInput("targetlock", "Target Lock", FALSE)),
           column(width=6, checkboxInput("cloak", "Cloak/Decloak", FALSE))
         )
-      ),
-      
-      conditionalPanel(
-        condition = 'input.name == "New ship"',
-        actionButton("register", "Register")
       )
     ),
     
     mainPanel(
-      
       conditionalPanel(
-        condition = 'input.name != "Select a ship"',
-        fluidRow(
-          column(6, plotOutput("attackPlot")),
-          column(6, plotOutput("defensePlot"))
-          #,
-          #column(6, plotOutput("testPlot"))
-        )
+        condition = 'input.shipList != 0',
+        column(6, plotOutput("attackPlot")),
+        column(6, plotOutput("defensePlot"))
       )
-      
     )
   )
 )
